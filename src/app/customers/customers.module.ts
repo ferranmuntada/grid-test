@@ -3,17 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { CustomersRoutingModule } from './customers-routing.module';
 import { CustomersComponent } from './component/customers.component';
-import {AppModule} from "../app.module";
+import { gridModule } from '../shared/grid/grid.module';
+import { CustomersService } from './services/customers.service';
 
 
 @NgModule({
   declarations: [
     CustomersComponent
   ],
-    imports: [
-        CommonModule,
-        CustomersRoutingModule,
-        AppModule
-    ]
+  imports: [
+    CommonModule,
+    CustomersRoutingModule,
+    gridModule
+  ],
+  providers: [
+    CustomersService
+  ]
 })
 export class CustomersModule { }

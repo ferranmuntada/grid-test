@@ -11,7 +11,7 @@ export class ndxDataGridColumnComponent {
     name : "",
     dataField : "",
     caption : "",
-    dataType : "string",
+    dataType : ndxDataTypes.STRING,
     alignment : "left",
     cssClass : "",
     width : "auto",
@@ -19,5 +19,7 @@ export class ndxDataGridColumnComponent {
     validationRule : {}
   }
   @Input() column =  this.initColumn;
+
+  defaultCallback = () => Promise.resolve(true);
 
 }

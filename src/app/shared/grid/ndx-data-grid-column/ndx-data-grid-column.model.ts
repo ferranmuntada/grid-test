@@ -1,4 +1,6 @@
-export type ndxDataTypes = "string" | "number" | "date";
+export enum ndxDataTypes {
+   STRING = "string"
+  };
 
 export type ndxAsyncRule = {
   callback: () => Promise<boolean>;
@@ -14,10 +16,10 @@ export type ndxDataGridColumn = {
   name: string;
   dataField: string;
   caption: string;
-  dataType: ndxDataTypes;
+  dataType: ndxDataTypes.STRING;
   alignment: string;
   cssClass: string;
   width: string;
   allowSorting: boolean
-  validationRule: Partial<ndxValidationRules>;
+  validationRule?: Partial<ndxValidationRules>;
 }

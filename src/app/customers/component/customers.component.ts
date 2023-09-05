@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
-import {Customer, CustomersService} from "../services/customers.service";
-import {Observable} from "rxjs";
-import {ndxDataGridColumn} from "../../shared/ndx-data-grid-column/ndx-data-grid-column.model";
+import { Component } from '@angular/core';
+import { ndxDataGridColumn } from "../../shared/grid/ndx-data-grid-column/ndx-data-grid-column.model";
+import { CustomersService } from "../services/customers.service";
+import { Customer } from '../interfaces/customer.interface';
+import { Observable } from "rxjs";
+import { CUSTOMERCOLUMNS } from '../consts/grid-columns/customer-columns.consts';
 
 @Component({
   selector: 'app-customers',
@@ -12,29 +14,6 @@ export class CustomersComponent {
   constructor(private customersService: CustomersService) {
   }
   customers$ :Observable<Customer[]> = this.customersService.getCustomers().pipe();
-  columns: ndxDataGridColumn[] = [
-    {
-      name: "ID",
-      dataField: "ID",
-      caption: "ID",
-      dataType: "number",
-      alignment: "left",
-      cssClass: "",
-      width: "100",
-      allowSorting: false,
-      validationRule: {}
-    },
-    {
-    name: "CompanyName",
-    dataField: "CompanyName",
-    caption: "CompanyName",
-    dataType: "string",
-    alignment: "left",
-    cssClass: "",
-    width: "100",
-    allowSorting: false,
-    validationRule: {}
-  } ];
-
+  columns: ndxDataGridColumn[] = CUSTOMERCOLUMNS;
 
 }
