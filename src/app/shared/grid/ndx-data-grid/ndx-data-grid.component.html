@@ -18,7 +18,7 @@
   (onCellPrepared)="onCellPrepared($event)"
 >
 <!--ndx-data-grid-column *ngFor="let column of columns; let i = index" [column]="column"></!--ndx-data-grid-column-->
-<dxi-column
+<dxi-column  *ngFor="let column of columns"
   [name]="column.name"
   [dataField]="column.dataField"
   [caption]="column.caption"

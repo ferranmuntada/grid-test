@@ -20,7 +20,7 @@ export class ndxDataGridComponent {
   validationRule: {}
 } ];
   /** prueba columna fija*/
-  column: ndxDataGridColumn = CUSTOMERCOLUMNS[0];
+  //column: ndxDataGridColumn = CUSTOMERCOLUMNS[0];
   defaultCallback = () => Promise.resolve(true);
   /** end prueba */
 
