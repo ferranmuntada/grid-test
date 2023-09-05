@@ -1,7 +1,7 @@
 <p>dx-data-grid works!</p>
 <dx-data-grid
   name="gn_provincias"
-  [dataSource]="dataSource"
+  [dataSource]="dataSource | async"
   [showColumnLines]="true"
   [showRowLines]="true"
   [showBorders]="true"
@@ -14,8 +14,8 @@
   width="600"
   height="895"
 >
-<dxi-column *ngFor="let column of columns;"></dxi-column>
-  <!-- <ndx-data-grid-column *ngFor="let column of columns; let i = index" [column]="column"></ndx-data-grid-column> -->
+   <ndx-data-grid-column *ngFor="let column of columns; let i = index" [column]="column"></ndx-data-grid-column>
+
   <dxo-sorting mode="multiple"></dxo-sorting>
   <dxo-paging [pageSize]="25"></dxo-paging>
   <dxo-keyboard-navigation
