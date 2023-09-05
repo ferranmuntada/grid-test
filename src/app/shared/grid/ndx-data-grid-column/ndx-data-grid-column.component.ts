@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ndxDataGridColumn, ndxDataTypes, ndxValidationRules} from "./ndx-data-grid-column.model";
+import {ndxDataGridColumn, ndxDataTypes} from "./ndx-data-grid-column.model";
 
 @Component({
   selector: 'ndx-data-grid-column',

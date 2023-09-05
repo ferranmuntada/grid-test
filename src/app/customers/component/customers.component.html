@@ -1,2 +1,9 @@
 <p>customers works!</p>
-<ndx-data-grid [dataSource]="customers$" [columns]="columns"></ndx-data-grid>
+<ndx-data-grid
+  [dataSource]="customers$"
+  [columns]="columns"
+  (toolbarPreparing) = "onToolbarPreparing_CustomersGrid($event)"
+  (editorPreparing) = "onEditorPreparing_CustomersGrid($event)"
+  (cellPrepared) = "onCellPreparing_CustomersGrid($event)"
+  >
+</ndx-data-grid>

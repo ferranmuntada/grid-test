@@ -2,6 +2,8 @@ export enum ndxDataTypes {
    STRING = "string"
   };
 
+export type ndxCallbackEvent = ($event: any) => void;
+
 export type ndxAsyncRule = {
   callback: () => Promise<boolean>;
   message: string;

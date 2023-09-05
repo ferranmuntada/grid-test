@@ -11,10 +11,35 @@
   columnResizingMode="nextColumn"
   [repaintChangesOnly]="true"
   [remoteOperations]="{ groupPaging: true }"
-  width="600"
+  width="900"
   height="895"
+  (onToolbarPreparing)="onToolbarPreparing($event)"
+  (onEditorPreparing)="onEditorPreparing($event)"
+  (onCellPrepared)="onCellPrepared($event)"
 >
-   <ndx-data-grid-column *ngFor="let column of columns; let i = index" [column]="column"></ndx-data-grid-column>
+<!--ndx-data-grid-column *ngFor="let column of columns; let i = index" [column]="column"></!--ndx-data-grid-column-->
+<dxi-column
+  [name]="column.name"
+  [dataField]="column.dataField"
+  [caption]="column.caption"
+  [dataType]="column.dataType"
+  [alignment]="column.alignment"
+  [cssClass]="column.cssClass"
+  [width]="column.width || 'auto'"
+  [allowSorting]="column.allowSorting || false"
+><dxi-validation-rule *ngIf="column.validationRule?.required" type="required">
+</dxi-validation-rule>
+  <dxi-validation-rule *ngIf="column.validationRule?.stringLength"
+    type="stringLength"
+    [max]="column.validationRule?.stringLength || 5"
+  ></dxi-validation-rule
+  ><dxi-validation-rule *ngIf="column.validationRule?.asyncRule"
+    type="async"
+    [validationCallback]="column.validationRule?.asyncRule?.callback || defaultCallback "
+    [message]="column.validationRule?.asyncRule?.message || 'Error algo' "
+  >
+  </dxi-validation-rule></dxi-column>
+
 
   <dxo-sorting mode="multiple"></dxo-sorting>
   <dxo-paging [pageSize]="25"></dxo-paging>
@@ -29,5 +54,14 @@
     [allowExportSelectedData]="true"
   >
   </dxo-export>
+  <dxo-editing
+    mode="batch"
+    [allowAdding]="true"
+    [allowDeleting]="true"
+    [allowUpdating]="true"
+    [useIcons]="true"
+    [selectTextOnEditStart]="true"
+  >
+  </dxo-editing>
   <dxo-selection mode="none" [deferred]="true"></dxo-selection>
 </dx-data-grid>

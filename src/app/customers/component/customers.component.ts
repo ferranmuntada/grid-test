@@ -16,4 +16,34 @@ export class CustomersComponent {
   customers$ :Observable<Customer[]> = this.customersService.getCustomers().pipe();
   columns: ndxDataGridColumn[] = CUSTOMERCOLUMNS;
 
+
+    //Desabilito los botones de edición para que vaya por el menu.
+    onToolbarPreparing_CustomersGrid(e: any) {
+      let toolbarItems = e.toolbarOptions.items;
+      toolbarItems.forEach(function (item: any) {
+        item.options = {
+          visible: false,
+        };
+      });
+    }
+    //Poner clase borde-editable segun si es editable o no la celda
+    onCellPreparing_CustomersGrid($event: any) {
+      const columnaCodigo: number = 0;
+      if ($event?.rowType === 'data' && $event.columnIndex === columnaCodigo) {
+        const clase: string = $event?.cellElement?.className;
+        if ($event.row.isNewRow) {
+          $event.cellElement.className = clase + ' borde-editable';
+        }
+      }
+    }
+    //Desabilito la modificación del campo codigo
+    onEditorPreparing_CustomersGrid($event: any) {
+      if ($event.parentType === 'dataRow' && $event.dataField === 'codigo') {
+        if ($event.row.isNewRow) {
+          $event.editorOptions.disabled = false;
+        } else {
+          $event.editorOptions.disabled = true;
+        }
+      }
+    }
 }
