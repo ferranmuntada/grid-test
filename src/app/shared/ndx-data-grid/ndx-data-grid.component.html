@@ -1,0 +1,36 @@
+<p>dx-data-grid works!</p>
+<dx-data-grid
+  name="gn_provincias"
+  key="codigo"
+  [focusedRowEnabled]="true"
+  [focusedRowIndex]="0"
+  [autoNavigateToFocusedRow]="true"
+  [dataSource]="dataSource"
+  [showColumnLines]="true"
+  [showRowLines]="true"
+  [showBorders]="true"
+  [rowAlternationEnabled]="true"
+  [allowColumnResizing]="true"
+  [allowColumnReordering]="true"
+  columnResizingMode="nextColumn"
+  [repaintChangesOnly]="true"
+  [remoteOperations]="{ groupPaging: true }"
+  width="600"
+  height="895"
+>
+  <ndx-data-grid-column *ngFor="let column of columns; let i = index" [column]="column"></ndx-data-grid-column>
+  <dxo-sorting mode="multiple"></dxo-sorting>
+  <dxo-paging [pageSize]="25"></dxo-paging>
+  <dxo-keyboard-navigation
+    enterKeyAction="moveFocus"
+    enterKeyDirection="row"
+  >
+  </dxo-keyboard-navigation>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-export
+    [enabled]="false"
+    [allowExportSelectedData]="true"
+  >
+  </dxo-export>
+  <dxo-selection mode="none" [deferred]="true"></dxo-selection>
+</dx-data-grid>
