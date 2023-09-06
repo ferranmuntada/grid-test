@@ -22,7 +22,11 @@ export class RendererComponent implements AfterViewInit {
   customCellTemplate() {
     if(this.cell.component) {
       const factory = this.componentFactoryResolver.resolveComponentFactory(this.column.loadComponent);
-      if (factory != undefined) this.viewContainerRef.createComponent(factory);
+      if (factory != undefined) {
+        let cm = this.viewContainerRef.createComponent(factory);
+        (cm.instance as any).data = this.cell;
+      }
+
       this.cdRef.detectChanges();
     }
   }

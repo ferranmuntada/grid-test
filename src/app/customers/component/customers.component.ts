@@ -10,21 +10,12 @@ import { CUSTOMERCOLUMNS } from '../consts/grid-columns/customer-columns.consts'
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css']
 })
-export class CustomersComponent implements AfterContentInit {
+export class CustomersComponent {
   constructor(private customersService: CustomersService) {
   }
-  ngAfterContentInit(): void {
-    // this.columns.push({
-    //   type: "buttons",
-    //   cssClass:"borde-editable",
-    //   cellTemplate:this.buttonsTemplateRef
-    // });
-  }
+
   customers$ :Observable<Customer[]> = this.customersService.getCustomers().pipe();
   columns: Partial<ndxDataGridColumn>[] = CUSTOMERCOLUMNS;
-  @ViewChild('buttonsTemplate', { static: true })
-  buttonsTemplateRef: TemplateRef<any> | undefined;
-
 
 
   //Desabilito los botones de edición para que vaya por el menu.

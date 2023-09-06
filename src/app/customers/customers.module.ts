@@ -5,13 +5,17 @@ import { CustomersRoutingModule } from './customers-routing.module';
 import { CustomersComponent } from './component/customers.component';
 import { gridModule } from '../shared/grid/grid.module';
 import { CustomersService } from './services/customers.service';
-import { DxButtonModule, DxTemplateModule } from 'devextreme-angular';
+import { DxButtonModule, DxNumberBoxModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
 import { CheckboxModule } from '../shared/checkbox/checkbox.module';
+import { AddressComponent } from './address/address.component';
+import { IdComponent } from './id/id.component';
 
 
 @NgModule({
   declarations: [
-    CustomersComponent
+    CustomersComponent,
+    AddressComponent,
+    IdComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +23,8 @@ import { CheckboxModule } from '../shared/checkbox/checkbox.module';
     gridModule,
     DxButtonModule,
     DxTemplateModule,
+    DxTextBoxModule,
+    DxNumberBoxModule,
     CheckboxModule
   ],
   providers: [
