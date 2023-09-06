@@ -1,5 +1,5 @@
 import { CheckboxComponent } from 'src/app/shared/checkbox/checkbox.component';
-import { ndxAsyncRule } from './../../../shared/grid/ndx-data-grid-column/ndx-data-grid-column.model';
+import { ndxAsyncRule } from '../../../shared/grid/ndx-data-grid/ndx-data-grid-column.model';
 
 export const CUSTOMERCOLUMNS = [
   {
@@ -27,8 +27,6 @@ export const CUSTOMERCOLUMNS = [
     cssClass: "",
     width: "100",
     allowSorting: false,
-    cellTemplate: 'custom', // Esto será el identificador para nuestra plantilla personalizada
-    loadComponent: CheckboxComponent,
     validationRule: {
       required: true,
       stringLength: 200,

@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, EventEmitter, Input, Output, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
-import { ndxDataGridColumn } from "../ndx-data-grid-column/ndx-data-grid-column.model";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ndxDataGridColumn } from "./ndx-data-grid-column.model";
 @Component({
   selector: 'ndx-data-grid',
   templateUrl: './ndx-data-grid.component.html',
@@ -19,7 +19,7 @@ export class ndxDataGridComponent {
   @Output() cellPrepared: EventEmitter<any> =
     new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {}
 
   onToolbarPreparing($event: any) {
     this.toolbarPreparing.emit($event);

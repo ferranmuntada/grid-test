@@ -29,7 +29,8 @@
     [cssClass]="column.cssClass"
     [width]="column.width || 'auto'"
     [allowSorting]="column.allowSorting || false"
-    [cellTemplate]="'custom'"
+    [editCellTemplate]="column.cellTemplate"
+    [showEditorAlways]="column.cellTemplate"
     ><dxi-validation-rule *ngIf="column.validationRule?.required" type="required">
     </dxi-validation-rule>
     <dxi-validation-rule *ngIf="column.validationRule?.stringLength"
@@ -43,7 +44,7 @@
     >
     </dxi-validation-rule>
   </dxi-column>
-  <div *dxTemplate="let cell of 'custom'">
+  <div *dxTemplate="let cell of column.cellTemplate">
     <app-renderer-component [cell]="cell" [column]="column"></app-renderer-component>
   </div>
 </ng-container>

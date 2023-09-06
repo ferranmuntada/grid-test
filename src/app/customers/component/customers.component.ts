@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, TemplateRef, ViewChild } from '@angular/core';
-import { ndxDataGridColumn } from "../../shared/grid/ndx-data-grid-column/ndx-data-grid-column.model";
+import { ndxDataGridColumn } from "../../shared/grid/ndx-data-grid/ndx-data-grid-column.model";
 import { CustomersService } from "../services/customers.service";
 import { Customer } from '../interfaces/customer.interface';
 import { Observable } from "rxjs";

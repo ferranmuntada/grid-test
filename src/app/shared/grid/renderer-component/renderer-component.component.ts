@@ -20,12 +20,10 @@ export class RendererComponent implements AfterViewInit {
 
 
   customCellTemplate() {
-    if (this.cell.column.cellTemplate === 'custom') {
-      if(this.cell.component) {
-        const factory = this.componentFactoryResolver.resolveComponentFactory(this.column.loadComponent);
-        if (factory != undefined) this.viewContainerRef.createComponent(factory);
-        this.cdRef.detectChanges();
-      }
+    if(this.cell.component) {
+      const factory = this.componentFactoryResolver.resolveComponentFactory(this.column.loadComponent);
+      if (factory != undefined) this.viewContainerRef.createComponent(factory);
+      this.cdRef.detectChanges();
     }
   }
 }
