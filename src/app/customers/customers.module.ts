@@ -6,6 +6,7 @@ import { CustomersComponent } from './component/customers.component';
 import { gridModule } from '../shared/grid/grid.module';
 import { CustomersService } from './services/customers.service';
 import { DxButtonModule, DxTemplateModule } from 'devextreme-angular';
+import { CheckboxModule } from '../shared/checkbox/checkbox.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { DxButtonModule, DxTemplateModule } from 'devextreme-angular';
     CustomersRoutingModule,
     gridModule,
     DxButtonModule,
-    DxTemplateModule
+    DxTemplateModule,
+    CheckboxModule
   ],
   providers: [
     CustomersService

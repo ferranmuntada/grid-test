@@ -1,4 +1,4 @@
-import { TemplateRef } from "@angular/core";
+import { TemplateRef, Type } from "@angular/core";
 /*
 export enum ndxDataTypes {
    STRING = "string",
@@ -28,5 +28,6 @@ export type ndxDataGridColumn = {
   width: string;
   allowSorting: boolean;
   validationRule: Partial<ndxValidationRules>;
-  cellTemplate: TemplateRef<any>;
+  cellTemplate: string;
+  loadComponent?: Type<any>;
 }

@@ -14,11 +14,11 @@ export class CustomersComponent implements AfterContentInit {
   constructor(private customersService: CustomersService) {
   }
   ngAfterContentInit(): void {
-    this.columns.push({
-      type: "buttons",
-      cssClass:"borde-editable",
-      cellTemplate:this.buttonsTemplateRef
-    });
+    // this.columns.push({
+    //   type: "buttons",
+    //   cssClass:"borde-editable",
+    //   cellTemplate:this.buttonsTemplateRef
+    // });
   }
   customers$ :Observable<Customer[]> = this.customersService.getCustomers().pipe();
   columns: Partial<ndxDataGridColumn>[] = CUSTOMERCOLUMNS;

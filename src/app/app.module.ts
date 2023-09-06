@@ -4,11 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ndxDataGridComponent } from './shared/grid/ndx-data-grid/ndx-data-grid.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CheckboxComponent } from './shared/checkbox/checkbox.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

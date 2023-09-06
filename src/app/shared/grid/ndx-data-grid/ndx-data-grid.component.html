@@ -18,33 +18,33 @@
   (onCellPrepared)="onCellPrepared($event)"
 >
 <!--ndx-data-grid-column *ngFor="let column of columns; let i = index" [column]="column"></!--ndx-data-grid-column-->
-<ng-container *ngFor="let column of columns">
 
+<ng-container *ngFor="let column of columns">
   <dxi-column
-  [name]="column.name"
-  [dataField]="column.dataField"
-  [caption]="column.caption"
-  [dataType]="column.dataType"
-  [alignment]="column.alignment"
-  [cssClass]="column.cssClass"
-  [width]="column.width || 'auto'"
-  [allowSorting]="column.allowSorting || false"
-  [cellTemplate]="column?.cellTemplate"
-><dxi-validation-rule *ngIf="column.validationRule?.required" type="required">
-</dxi-validation-rule>
-  <dxi-validation-rule *ngIf="column.validationRule?.stringLength"
-    type="stringLength"
-    [max]="column.validationRule?.stringLength || 5"
-  ></dxi-validation-rule
-  ><dxi-validation-rule *ngIf="column.validationRule?.asyncRule"
-    type="async"
-    [validationCallback]="column.validationRule?.asyncRule?.callback || defaultCallback "
-    [message]="column.validationRule?.asyncRule?.message || 'Error algo' "
-  >
-  </dxi-validation-rule></dxi-column>
-  <div *ngIf="column?.cellTemplate">
-    <div *dxTemplate="let data of 'buttonsTemplate'">
-    </div>
+    [name]="column.name"
+    [dataField]="column.dataField"
+    [caption]="column.caption"
+    [dataType]="column.dataType"
+    [alignment]="column.alignment"
+    [cssClass]="column.cssClass"
+    [width]="column.width || 'auto'"
+    [allowSorting]="column.allowSorting || false"
+    [cellTemplate]="'custom'"
+    ><dxi-validation-rule *ngIf="column.validationRule?.required" type="required">
+    </dxi-validation-rule>
+    <dxi-validation-rule *ngIf="column.validationRule?.stringLength"
+      type="stringLength"
+      [max]="column.validationRule?.stringLength || 5"
+    ></dxi-validation-rule
+    ><dxi-validation-rule *ngIf="column.validationRule?.asyncRule"
+      type="async"
+      [validationCallback]="column.validationRule?.asyncRule?.callback || defaultCallback "
+      [message]="column.validationRule?.asyncRule?.message || 'Error algo' "
+    >
+    </dxi-validation-rule>
+  </dxi-column>
+  <div *dxTemplate="let cell of 'custom'">
+    <app-renderer-component [cell]="cell" [column]="column"></app-renderer-component>
   </div>
 </ng-container>
 
