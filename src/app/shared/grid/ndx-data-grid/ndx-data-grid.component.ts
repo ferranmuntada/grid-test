@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import { ndxCallbackEvent, ndxDataGridColumn, ndxDataTypes } from "../ndx-data-grid-column/ndx-data-grid-column.model";
-import { CUSTOMERCOLUMNS } from 'src/app/customers/consts/grid-columns/customer-columns.consts';
+import { ndxDataGridColumn } from "../ndx-data-grid-column/ndx-data-grid-column.model";
 @Component({
   selector: 'ndx-data-grid',
   templateUrl: './ndx-data-grid.component.html',
@@ -8,11 +7,11 @@ import { CUSTOMERCOLUMNS } from 'src/app/customers/consts/grid-columns/customer-
 })
 export class ndxDataGridComponent {
   @Input() dataSource: any;
-  @Input() columns: ndxDataGridColumn[] = [{
+  @Input() columns: Partial<ndxDataGridColumn>[] = [{
   name: "",
   dataField: "",
   caption: "",
-  dataType: ndxDataTypes.STRING,
+  dataType: "string",
   alignment: "left",
   cssClass: "",
   width: "100",

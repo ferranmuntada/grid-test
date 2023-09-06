@@ -1,7 +1,10 @@
+import { TemplateRef } from "@angular/core";
+/*
 export enum ndxDataTypes {
-   STRING = "string"
+   STRING = "string",
+   BUTTONS = "buttons"
   };
-
+*/
 export type ndxCallbackEvent = ($event: any) => void;
 
 export type ndxAsyncRule = {
@@ -16,12 +19,14 @@ export type ndxValidationRules = {
 
 export type ndxDataGridColumn = {
   name: string;
+  type: string;
   dataField: string;
   caption: string;
-  dataType: ndxDataTypes.STRING;
+  dataType: string;
   alignment: string;
   cssClass: string;
   width: string;
-  allowSorting: boolean
-  validationRule?: Partial<ndxValidationRules>;
+  allowSorting: boolean;
+  validationRule: Partial<ndxValidationRules>;
+  cellTemplate: TemplateRef<any>;
 }

@@ -5,6 +5,7 @@ import { CustomersRoutingModule } from './customers-routing.module';
 import { CustomersComponent } from './component/customers.component';
 import { gridModule } from '../shared/grid/grid.module';
 import { CustomersService } from './services/customers.service';
+import { DxButtonModule, DxTemplateModule } from 'devextreme-angular';
 
 
 @NgModule({
@@ -14,7 +15,9 @@ import { CustomersService } from './services/customers.service';
   imports: [
     CommonModule,
     CustomersRoutingModule,
-    gridModule
+    gridModule,
+    DxButtonModule,
+    DxTemplateModule
   ],
   providers: [
     CustomersService

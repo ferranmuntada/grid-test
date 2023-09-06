@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ndxDataGridColumn, ndxDataTypes} from "./ndx-data-grid-column.model";
+import {ndxDataGridColumn} from "./ndx-data-grid-column.model";
 
 @Component({
   selector: 'ndx-data-grid-column',
@@ -7,11 +7,11 @@ import {ndxDataGridColumn, ndxDataTypes} from "./ndx-data-grid-column.model";
   styleUrls: ['./ndx-data-grid-column.component.css']
 })
 export class ndxDataGridColumnComponent {
-  initColumn: ndxDataGridColumn = {
+  initColumn: Partial<ndxDataGridColumn> = {
     name : "",
     dataField : "",
     caption : "",
-    dataType : ndxDataTypes.STRING,
+    dataType : "string",
     alignment : "left",
     cssClass : "",
     width : "auto",

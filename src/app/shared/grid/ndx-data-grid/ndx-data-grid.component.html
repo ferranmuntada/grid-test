@@ -18,7 +18,9 @@
   (onCellPrepared)="onCellPrepared($event)"
 >
 <!--ndx-data-grid-column *ngFor="let column of columns; let i = index" [column]="column"></!--ndx-data-grid-column-->
-<dxi-column  *ngFor="let column of columns"
+<ng-container *ngFor="let column of columns">
+
+  <dxi-column
   [name]="column.name"
   [dataField]="column.dataField"
   [caption]="column.caption"
@@ -27,6 +29,7 @@
   [cssClass]="column.cssClass"
   [width]="column.width || 'auto'"
   [allowSorting]="column.allowSorting || false"
+  [cellTemplate]="column?.cellTemplate"
 ><dxi-validation-rule *ngIf="column.validationRule?.required" type="required">
 </dxi-validation-rule>
   <dxi-validation-rule *ngIf="column.validationRule?.stringLength"
@@ -39,6 +42,12 @@
     [message]="column.validationRule?.asyncRule?.message || 'Error algo' "
   >
   </dxi-validation-rule></dxi-column>
+  <div *ngIf="column?.cellTemplate">
+    <div *dxTemplate="let data of 'buttonsTemplate'">
+    </div>
+  </div>
+</ng-container>
+
 
 
   <dxo-sorting mode="multiple"></dxo-sorting>
