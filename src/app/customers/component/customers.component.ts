@@ -48,7 +48,5 @@ export class CustomersComponent {
     }
   }
 
-  myCellTemplateOption($event: any) {
-    console.log('myCellTemplateOption', $event);
-  }
+
 }

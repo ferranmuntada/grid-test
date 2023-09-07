@@ -17,7 +17,6 @@
   (onEditorPreparing)="onEditorPreparing($event)"
   (onCellPrepared)="onCellPrepared($event)"
 >
-<!--ndx-data-grid-column *ngFor="let column of columns; let i = index" [column]="column"></!--ndx-data-grid-column-->
 
 <ng-container *ngFor="let column of columns">
   <dxi-column
@@ -31,6 +30,7 @@
     [allowSorting]="column.allowSorting || false"
     [editCellTemplate]="column.cellTemplate"
     [showEditorAlways]="column.cellTemplate"
+    (sortOrderChange)="column?.sortOrderChange($event)"
     ><dxi-validation-rule *ngIf="column.validationRule?.required" type="required">
     </dxi-validation-rule>
     <dxi-validation-rule *ngIf="column.validationRule?.stringLength"

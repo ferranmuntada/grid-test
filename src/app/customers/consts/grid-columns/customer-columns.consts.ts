@@ -1,7 +1,6 @@
-import { CheckboxComponent } from 'src/app/shared/checkbox/checkbox.component';
-import { ndxAsyncRule } from '../../../shared/grid/ndx-data-grid/ndx-data-grid-column.model';
 import { AddressComponent } from '../../address/address.component';
 import { IdComponent } from '../../id/id.component';
+import { CustomersService } from '../../services/customers.service';
 
 export const CUSTOMERCOLUMNS = [
   {
@@ -33,7 +32,7 @@ export const CUSTOMERCOLUMNS = [
       required: true,
       stringLength: 200,
       asyncRule: {
-        callback: () => { return Promise.resolve(true) },
+        callback: ($data: any) => { return Promise.resolve(true) },
         message: "bad format companyname"
       }
     }
@@ -46,16 +45,17 @@ export const CUSTOMERCOLUMNS = [
     alignment: "left",
     cssClass: "",
     width: "100",
-    allowSorting: false,
+    allowSorting: true,
     validationRule: {
       required: true,
       stringLength: 200,
       asyncRule: {
-        callback: () => { return Promise.resolve(true) },
+        callback: CustomersService.validateAddress,
         message: "bad format companyname"
       }
     },
     cellTemplate: "AddressTemplate",
-    loadComponent: AddressComponent
+    loadComponent: AddressComponent,
+    sortOrderChange: CustomersService.sortOrderChangeAddress
   }
 ];

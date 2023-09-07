@@ -8,7 +8,7 @@ export enum ndxDataTypes {
 export type ndxCallbackEvent = ($event: any) => void;
 
 export type ndxAsyncRule = {
-  callback: () => Promise<boolean>;
+  callback: ($data: any) => Promise<boolean>;
   message: string;
 }
 export type ndxValidationRules = {
@@ -30,4 +30,5 @@ export type ndxDataGridColumn = {
   validationRule: Partial<ndxValidationRules>;
   cellTemplate: string;
   loadComponent?: Type<any>;
+  sortOrderChange: ($data: any) => void;
 }

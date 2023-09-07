@@ -12,4 +12,13 @@ customers: Customer[] = CUSTOMERS
   getCustomers(): Observable<Customer[]> {
     return of(this.customers);
   }
+
+  static validateAddress = ($data: any) => {
+    console.log('validateAddress recibe ', $data);
+    return Promise.resolve(true);
+  };
+
+  static sortOrderChangeAddress = ($data: any) => {
+    console.log('sortOrderChangeAddress recibe ', $data);
+  };
 }
