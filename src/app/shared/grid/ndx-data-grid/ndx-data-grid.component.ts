@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ndxDataGridColumn } from "./ndx-data-grid-column.model";
+import { ndxDataGridColumn } from "../models/options/ndx-data-grid-column.model";
+import { ndxDataGrid, ndxFilterRow, ndxKeyboardNavigation, ndxPaging, ndxSorting } from '../models/columns/ndx-data-grid.model';
 @Component({
   selector: 'ndx-data-grid',
   templateUrl: './ndx-data-grid.component.html',
@@ -7,29 +8,43 @@ import { ndxDataGridColumn } from "./ndx-data-grid-column.model";
 })
 export class ndxDataGridComponent {
   @Input() dataSource: any;
+  @Input() options: Partial<ndxDataGrid> = {};
   @Input() columns: Partial<ndxDataGridColumn>[] = [];
 
+  defaultFocusedRowIndex = 0;
+  defaultShowColumnLines = true;
+  defaultShowRowLines = true;
+  defaultShowBorders = true;
+  defaultRowAlternationEnabled = true;
+  defaultAllowColumnResizing = true;
+  defaultAllowColumnReordering = true;
+  defaultColumnResizingMode = "nextColumn";
+  defaultRepaintChangesOnly = true;
+  defaultRemoteOperations = "{ groupPaging: true }"
+  defaultWidth = "auto"
+  defaultHeight = "auto"
   defaultCallback = () => Promise.resolve(true);
-  /** end prueba */
+  defaultEvent = ($event: any) => {};
 
-  @Output() toolbarPreparing: EventEmitter<any> =
-    new EventEmitter<any>();
-  @Output() editorPreparing: EventEmitter<any> =
-    new EventEmitter<any>();
-  @Output() cellPrepared: EventEmitter<any> =
-    new EventEmitter<any>();
+  defaultPaging: ndxPaging = {
+    enabled: true,
+    pageIndex: 0,
+    pageSize: 20
+  }
+  defaultSorting: Partial<ndxSorting> = {
+    mode: 'multiple'
+  }
+  defaultKeyboardNavigation: ndxKeyboardNavigation = {
+    editOnKeyPress: false,
+    enabled: true,
+    enterKeyAction: "moveFocus",
+    enterKeyDirection: "row"
+    }
+  defaultFilterRow: Partial<ndxFilterRow> = {
+    visible: true
+  }
+
 
   constructor() {}
 
-  onToolbarPreparing($event: any) {
-    this.toolbarPreparing.emit($event);
-  }
-
-  onEditorPreparing($event: any) {
-    this.editorPreparing.emit($event);
-  }
-
-  onCellPrepared($event: any) {
-    this.cellPrepared.emit($event);
-  }
 }

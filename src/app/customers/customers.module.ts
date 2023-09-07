@@ -6,7 +6,6 @@ import { CustomersComponent } from './component/customers.component';
 import { gridModule } from '../shared/grid/grid.module';
 import { CustomersService } from './services/customers.service';
 import { DxButtonModule, DxNumberBoxModule, DxTemplateModule, DxTextBoxModule } from 'devextreme-angular';
-import { CheckboxModule } from '../shared/checkbox/checkbox.module';
 import { AddressComponent } from './address/address.component';
 import { IdComponent } from './id/id.component';
 
@@ -24,8 +23,7 @@ import { IdComponent } from './id/id.component';
     DxButtonModule,
     DxTemplateModule,
     DxTextBoxModule,
-    DxNumberBoxModule,
-    CheckboxModule
+    DxNumberBoxModule
   ],
   providers: [
     CustomersService

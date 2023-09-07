@@ -1,9 +1,11 @@
 import { AfterContentInit, Component, TemplateRef, ViewChild } from '@angular/core';
-import { ndxDataGridColumn } from "../../shared/grid/ndx-data-grid/ndx-data-grid-column.model";
+import { ndxDataGridColumn } from "../../shared/grid/models/options/ndx-data-grid-column.model";
 import { CustomersService } from "../services/customers.service";
 import { Customer } from '../interfaces/customer.interface';
 import { Observable } from "rxjs";
-import { CUSTOMERCOLUMNS } from '../consts/grid-columns/customer-columns.consts';
+import { CUSTOMERCOLUMNS } from '../consts/grid/customers/columns/customer-columns.consts';
+import { ndxDataGrid } from 'src/app/shared/grid/models/columns/ndx-data-grid.model';
+import { CUSTOMEROPTIONS } from '../consts/grid/customers/options/customer-options.consts';
 
 @Component({
   selector: 'app-customers',
@@ -15,38 +17,7 @@ export class CustomersComponent {
   }
 
   customers$ :Observable<Customer[]> = this.customersService.getCustomers().pipe();
+  options: Partial<ndxDataGrid> = CUSTOMEROPTIONS;
   columns: Partial<ndxDataGridColumn>[] = CUSTOMERCOLUMNS;
-
-
-  //Desabilito los botones de edición para que vaya por el menu.
-  onToolbarPreparing_CustomersGrid($event: any) {
-    let toolbarItems = $event.toolbarOptions.items;
-    toolbarItems.forEach(function (item: any) {
-      item.options = {
-        visible: false,
-      };
-    });
-  }
-  //Poner clase borde-editable segun si es editable o no la celda
-  onCellPrepared_CustomersGrid($event: any) {
-    const columnaCodigo: number = 0;
-    if ($event?.rowType === 'data' && $event.columnIndex === columnaCodigo) {
-      const clase: string = $event?.cellElement?.className;
-      if ($event.row.isNewRow) {
-        $event.cellElement.className = clase + ' borde-editable';
-      }
-    }
-  }
-  //Desabilito la modificación del campo codigo
-  onEditorPreparing_CustomersGrid($event: any) {
-    if ($event.parentType === 'dataRow' && $event.dataField === 'codigo') {
-      if ($event.row.isNewRow) {
-        $event.editorOptions.disabled = false;
-      } else {
-        $event.editorOptions.disabled = true;
-      }
-    }
-  }
-
 
 }

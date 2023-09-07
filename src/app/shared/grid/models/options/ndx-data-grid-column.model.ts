@@ -5,8 +5,6 @@ export enum ndxDataTypes {
    BUTTONS = "buttons"
   };
 */
-export type ndxCallbackEvent = ($event: any) => void;
-
 export type ndxAsyncRule = {
   callback: ($data: any) => Promise<boolean>;
   message: string;
@@ -31,4 +29,5 @@ export type ndxDataGridColumn = {
   cellTemplate: string;
   loadComponent?: Type<any>;
   sortOrderChange: ($data: any) => void;
+  calculateDisplayValue: ($data: any) => any;
 }

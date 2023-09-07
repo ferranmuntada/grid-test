@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ndxDataGridComponent } from './ndx-data-grid/ndx-data-grid.component';
 import {DxButtonModule, DxDataGridModule } from "devextreme-angular";
 import { RendererComponent } from './renderer-component/renderer-component.component';
-import { CheckboxModule } from '../checkbox/checkbox.module';
+
 
 
 @NgModule({
@@ -16,7 +16,6 @@ import { CheckboxModule } from '../checkbox/checkbox.module';
     CommonModule,
     DxDataGridModule,
     DxButtonModule,
-    CheckboxModule
   ],
   exports: [
     ndxDataGridComponent,

@@ -1,21 +1,24 @@
-<p>dx-data-grid works!</p>
+{{(!!options.filterRow?.visible || 'pepa')}}
 <dx-data-grid
-  name="gn_provincias"
-  [dataSource]="dataSource | async"
-  [showColumnLines]="true"
-  [showRowLines]="true"
-  [showBorders]="true"
-  [rowAlternationEnabled]="true"
-  [allowColumnResizing]="true"
-  [allowColumnReordering]="true"
-  columnResizingMode="nextColumn"
-  [repaintChangesOnly]="true"
-  [remoteOperations]="{ groupPaging: true }"
-  width="900"
-  height="895"
-  (onToolbarPreparing)="onToolbarPreparing($event)"
-  (onEditorPreparing)="onEditorPreparing($event)"
-  (onCellPrepared)="onCellPrepared($event)"
+  [keyExpr]="options.keyExpr"
+  [focusedRowEnabled]="options.focusedRowEnabled || !!options.keyExpr"
+  [focusedRowIndex]="options.focusedRowIndex || defaultFocusedRowIndex"
+  [autoNavigateToFocusedRow]="options.autoNavigateToFocusedRow || !!options.keyExpr"
+  [dataSource]="dataSource"
+  [showColumnLines]="options.showColumnLines || defaultShowColumnLines"
+  [showRowLines]="options.showRowLines || defaultShowRowLines"
+  [showBorders]="options.showBorders || defaultShowBorders"
+  [rowAlternationEnabled]="options.rowAlternationEnabled || defaultRowAlternationEnabled"
+  [allowColumnResizing]="options.allowColumnResizing || defaultAllowColumnResizing"
+  [allowColumnReordering]="options.allowColumnReordering || defaultAllowColumnReordering"
+  [columnResizingMode]="options.columnResizingMode || defaultColumnResizingMode"
+  [repaintChangesOnly]="options.repaintChangesOnly || defaultRepaintChangesOnly"
+  [remoteOperations]="options.remoteOperations || defaultRemoteOperations"
+  [width]="options.width || defaultWidth"
+  [height]="options.height || defaultHeight"
+  (onToolbarPreparing)="options.onToolbarPreparing? options.onToolbarPreparing($event) : defaultEvent($event) "
+  (onEditorPreparing)="options.onEditorPreparing? options.onEditorPreparing($event) : defaultEvent($event)"
+  (onCellPrepared)="options.onCellPrepared? options.onCellPrepared($event) : defaultEvent($event)"
 >
 
 <ng-container *ngFor="let column of columns">
@@ -30,7 +33,8 @@
     [allowSorting]="column.allowSorting || false"
     [editCellTemplate]="column.cellTemplate"
     [showEditorAlways]="column.cellTemplate"
-    (sortOrderChange)="column?.sortOrderChange($event)"
+    (sortOrderChange)="column.sortOrderChange? column.sortOrderChange($event) : defaultEvent($event)"
+    [calculateDisplayValue]="column?.calculateDisplayValue"
     ><dxi-validation-rule *ngIf="column.validationRule?.required" type="required">
     </dxi-validation-rule>
     <dxi-validation-rule *ngIf="column.validationRule?.stringLength"
@@ -49,16 +53,19 @@
   </div>
 </ng-container>
 
-
-
-  <dxo-sorting mode="multiple"></dxo-sorting>
-  <dxo-paging [pageSize]="25"></dxo-paging>
+  <dxo-sorting [mode]="options.sorting?.mode ||defaultSorting.mode"></dxo-sorting>
+  <dxo-paging [enabled]="options.paging?.enabled || defaultPaging.enabled"
+  [pageIndex]="options.paging?.pageIndex || defaultPaging.pageIndex"
+  [pageSize]="options.paging?.pageSize || defaultPaging.pageSize"
+  ></dxo-paging>
   <dxo-keyboard-navigation
-    enterKeyAction="moveFocus"
-    enterKeyDirection="row"
+  [editOnKeyPress]="options.keyboardNavigation?.editOnKeyPress || defaultKeyboardNavigation.editOnKeyPress"
+  [enabled]="options.keyboardNavigation?.enabled || defaultKeyboardNavigation.enabled"
+  [enterKeyAction]="options.keyboardNavigation?.enterKeyAction || defaultKeyboardNavigation.enterKeyAction"
+  [enterKeyDirection]="options.keyboardNavigation?.enterKeyDirection || defaultKeyboardNavigation.enterKeyDirection"
   >
   </dxo-keyboard-navigation>
-  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-filter-row [visible]="!!(options.filterRow?.visible)? options.filterRow?.visible : defaultFilterRow.visible"></dxo-filter-row>
   <dxo-export
     [enabled]="false"
     [allowExportSelectedData]="true"

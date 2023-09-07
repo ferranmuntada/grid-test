@@ -1,10 +1,7 @@
 <p>customers works!</p>
-<app-checkbox></app-checkbox>
 <ndx-data-grid
-  [dataSource]="customers$"
+  [dataSource]="customers$ | async"
+  [options]="options"
   [columns]="columns"
-  (toolbarPreparing) = "onToolbarPreparing_CustomersGrid($event)"
-  (editorPreparing) = "onEditorPreparing_CustomersGrid($event)"
-  (cellPrepared) = "onCellPrepared_CustomersGrid($event)"
   >
 </ndx-data-grid>
