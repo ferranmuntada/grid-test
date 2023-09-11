@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ndxDataGridColumn } from "../models/options/ndx-data-grid-column.model";
-import { ndxDataGrid, ndxEditing, ndxExport, ndxFilterRow, ndxKeyboardNavigation, ndxPaging, ndxSelection, ndxSorting } from '../models/columns/ndx-data-grid.model';
+import { ndxDataGridColumn } from "../models/columns/ndx-data-grid-column.model";
+import { ndxDataGrid } from '../models/options/ndx-data-grid.model';
+import { GRID_DEFAULT_OPTIONS } from '../consts/options/grid-default-options.consts';
+import { COLUMNS_DEFAULT_OPTIONS } from '../consts/columns/columns-default-options.consts';
 @Component({
   selector: 'ndx-data-grid',
   templateUrl: './ndx-data-grid.component.html',
@@ -14,57 +16,12 @@ export class ndxDataGridComponent {
   @Output() changesChange: EventEmitter<any> =
   new EventEmitter<any>();
 
-  defaultFocusedRowIndex = 0;
-  defaultShowColumnLines = true;
-  defaultShowRowLines = true;
-  defaultShowBorders = true;
-  defaultRowAlternationEnabled = true;
-  defaultAllowColumnResizing = true;
-  defaultAllowColumnReordering = true;
-  defaultColumnResizingMode = "nextColumn";
-  defaultRepaintChangesOnly = true;
-  defaultRemoteOperations = "{ groupPaging: true }"
-  defaultWidth = "auto"
-  defaultHeight = "auto"
+  defaultOptions = GRID_DEFAULT_OPTIONS;
+  columnsDefaultOptions = COLUMNS_DEFAULT_OPTIONS;
   defaultCallback = () => Promise.resolve(true);
   defaultEvent = ($event: any) => {};
 
-  defaultPaging: ndxPaging = {
-    enabled: true,
-    pageIndex: 0,
-    pageSize: 20
-  }
-  defaultSorting: Partial<ndxSorting> = {
-    mode: 'multiple'
-  }
-  defaultKeyboardNavigation: ndxKeyboardNavigation = {
-    editOnKeyPress: false,
-    enabled: true,
-    enterKeyAction: "moveFocus",
-    enterKeyDirection: "row"
-    }
-  defaultFilterRow: Partial<ndxFilterRow> = {
-    visible: true
-  }
-  defaultExport: ndxExport = {
-    enabled: false,
-    allowExportSelectedData: false
-  }
-  defaultSelection: ndxSelection = {
-    allowSelectAll: true,
-    deferred: true,
-    mode: "none",
-    selectAllMode: "allPages",
-    showCheckBoxesMode: "onClick"
-  }
-  defaultEditing: ndxEditing = {
-    mode: "batch",
-    allowAdding: false,
-    allowDeleting: false,
-    allowUpdating: false,
-    useIcons: false,
-    selectTextOnEditStart: true
-  }
+
 
   onChangesChange($event: any){
     this.changesChange.emit($event);

@@ -1,28 +1,23 @@
-import { CustomersService } from 'src/app/customers/services/customers.service';
-export const CUSTOMEROPTIONS = {
+import { ndxDataGrid } from 'src/app/shared/grid/models/options/ndx-data-grid.model';
+
+  //Desabilito los botones de edición para que vaya por el menu.
+  const toolbarPreparing_CustomersGrid = ($event: any) => {
+    console.log('onToolbarPreparing_CustomersGrid not needed , equals to defaultOptions!!', $event);
+    let toolbarItems = $event.toolbarOptions.items;
+    toolbarItems.forEach(function (item: any) {
+      item.options = {
+        visible: false,
+      };
+    });
+  };
+
+export const CUSTOMEROPTIONS: Partial<ndxDataGrid> = {
   keyExpr: 'ID',
   width: "900",
   height: "800",
-  onToolbarPreparing: CustomersService.onToolbarPreparing_CustomersGrid,
-  onEditorPreparing: CustomersService.onEditorPreparing_CustomersGrid,
-  onCellPrepared: CustomersService.onCellPrepared_CustomersGrid,
+  onToolbarPreparing: toolbarPreparing_CustomersGrid,
   paging: {enabled: true, pageSize: 6},
-  filterRow: {visible: false}
-  /*
-  focusedRowEnabled: boolean;
-  focusedRowIndex: number;
-  autoNavigateToFocusedRow: boolean;
-  showColumnLines: boolean;
-  showRowLines: boolean;
-  showBorders: boolean;
-  rowAlternationEnabled: boolean;
-  allowColumnResizing: boolean;
-  allowColumnReordering: boolean;
-  columnResizingMode: string;
-  repaintChangesOnly: boolean;
-  remoteOperations: string;
-  width: string;
-  height: string;
- */
+  filterRow: {visible: false},
+  editing: {allowAdding: true, allowUpdating: true, allowDeleting: true}
 }
 

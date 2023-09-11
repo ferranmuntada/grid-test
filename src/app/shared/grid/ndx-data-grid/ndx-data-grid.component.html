@@ -1,23 +1,23 @@
 <dx-data-grid
   [keyExpr]="options.keyExpr"
   [focusedRowEnabled]="options.focusedRowEnabled || !!options.keyExpr"
-  [focusedRowIndex]="options.focusedRowIndex || defaultFocusedRowIndex"
+  [focusedRowIndex]="options.focusedRowIndex || defaultOptions.focusedRowIndex"
   [autoNavigateToFocusedRow]="options.autoNavigateToFocusedRow || !!options.keyExpr"
   [dataSource]="dataSource"
-  [showColumnLines]="options.showColumnLines ?? defaultShowColumnLines"
-  [showRowLines]="options.showRowLines ?? defaultShowRowLines"
-  [showBorders]="options.showBorders ?? defaultShowBorders"
-  [rowAlternationEnabled]="options.rowAlternationEnabled ?? defaultRowAlternationEnabled"
-  [allowColumnResizing]="options.allowColumnResizing ?? defaultAllowColumnResizing"
-  [allowColumnReordering]="options.allowColumnReordering ?? defaultAllowColumnReordering"
-  [columnResizingMode]="options.columnResizingMode ?? defaultColumnResizingMode"
-  [repaintChangesOnly]="options.repaintChangesOnly ?? defaultRepaintChangesOnly"
-  [remoteOperations]="options.remoteOperations || defaultRemoteOperations"
-  [width]="options.width ?? defaultWidth"
-  [height]="options.height ?? defaultHeight"
-  (onToolbarPreparing)="options.onToolbarPreparing? options.onToolbarPreparing($event) : defaultEvent($event) "
-  (onEditorPreparing)="options.onEditorPreparing? options.onEditorPreparing($event) : defaultEvent($event)"
-  (onCellPrepared)="options.onCellPrepared? options.onCellPrepared($event) : defaultEvent($event)"
+  [showColumnLines]="options.showColumnLines ?? defaultOptions.showColumnLines"
+  [showRowLines]="options.showRowLines ?? defaultOptions.showRowLines"
+  [showBorders]="options.showBorders ?? defaultOptions.showBorders"
+  [rowAlternationEnabled]="options.rowAlternationEnabled ?? defaultOptions.rowAlternationEnabled"
+  [allowColumnResizing]="options.allowColumnResizing ?? defaultOptions.allowColumnResizing"
+  [allowColumnReordering]="options.allowColumnReordering ?? defaultOptions.allowColumnReordering"
+  [columnResizingMode]="options.columnResizingMode ?? defaultOptions.columnResizingMode"
+  [repaintChangesOnly]="options.repaintChangesOnly ?? defaultOptions.repaintChangesOnly"
+  [remoteOperations]="options.remoteOperations || defaultOptions.remoteOperations"
+  [width]="options.width ?? defaultOptions.width"
+  [height]="options.height ?? defaultOptions.height"
+  (onToolbarPreparing)="options.onToolbarPreparing? options.onToolbarPreparing($event) : defaultOptions.onToolbarPreparing($event) "
+  (onEditorPreparing)="options.onEditorPreparing? options.onEditorPreparing($event) : defaultOptions.onEditorPreparing($event)"
+  (onCellPrepared)="options.onCellPrepared? options.onCellPrepared($event) : defaultOptions.onCellPrepared($event)"
 >
 
 <ng-container *ngFor="let column of columns">
@@ -34,16 +34,24 @@
     [showEditorAlways]="column.cellTemplate"
     (sortOrderChange)="column.sortOrderChange? column.sortOrderChange($event) : defaultEvent($event)"
     [calculateDisplayValue]="column?.calculateDisplayValue"
-    ><dxi-validation-rule *ngIf="column.validationRule?.required" type="required">
+    ><dxi-validation-rule *ngIf="column.validationRule?.required"
+      type="required"
+      [trim]="column?.validationRule?.required?.trim ?? columnsDefaultOptions.requiredRule.trim">
     </dxi-validation-rule>
     <dxi-validation-rule *ngIf="column.validationRule?.stringLength"
       type="stringLength"
-      [max]="column.validationRule?.stringLength || 5"
+      [ignoreEmptyValue] = "column?.validationRule?.stringLength?.ignoreEmptyValue ?? columnsDefaultOptions.stringLengthRule.ignoreEmptyValue"
+      [message] = "column?.validationRule?.stringLength?.message ?? columnsDefaultOptions.stringLengthRule.message"
+      [trim] = "column?.validationRule?.stringLength?.trim ?? columnsDefaultOptions.stringLengthRule.trim"
+      [min]="column.validationRule?.stringLength?.min ?? columnsDefaultOptions.stringLengthRule.min"
+      [max]="column.validationRule?.stringLength?.max ?? columnsDefaultOptions.stringLengthRule.max"
     ></dxi-validation-rule
     ><dxi-validation-rule *ngIf="column.validationRule?.asyncRule"
       type="async"
-      [validationCallback]="column.validationRule?.asyncRule?.callback || defaultCallback "
-      [message]="column.validationRule?.asyncRule?.message || 'Error algo' "
+      [ignoreEmptyValue]="column.validationRule?.asyncRule?.ignoreEmptyValue ?? columnsDefaultOptions.asyncRule.ignoreEmptyValue"
+      [validationCallback]="column.validationRule?.asyncRule?.validationCallback || columnsDefaultOptions.asyncRule.validationCallback"
+      [message]="column.validationRule?.asyncRule?.message ?? columnsDefaultOptions.asyncRule.message"
+      [reevaluate]="column.validationRule?.asyncRule?.reevaluate ?? columnsDefaultOptions.asyncRule.reevaluate"
     >
     </dxi-validation-rule>
   </dxi-column>
@@ -52,43 +60,47 @@
   </div>
 </ng-container>
 
-  <dxo-sorting [mode]="options.sorting?.mode ?? defaultSorting.mode"></dxo-sorting>
-  <dxo-paging [enabled]="options.paging?.enabled ?? defaultPaging.enabled"
-  [pageIndex]="options.paging?.pageIndex ?? defaultPaging.pageIndex"
-  [pageSize]="options.paging?.pageSize ?? defaultPaging.pageSize"
+  <dxo-sorting [mode]="options.sorting?.mode ?? defaultOptions.sorting.mode"></dxo-sorting>
+  <dxo-paging [enabled]="options.paging?.enabled ?? defaultOptions.paging.enabled"
+  [pageIndex]="options.paging?.pageIndex ?? defaultOptions.paging.pageIndex"
+  [pageSize]="options.paging?.pageSize ?? defaultOptions.paging.pageSize"
   ></dxo-paging>
   <dxo-keyboard-navigation
-  [editOnKeyPress]="options.keyboardNavigation?.editOnKeyPress || defaultKeyboardNavigation.editOnKeyPress"
-  [enabled]="options.keyboardNavigation?.enabled ?? defaultKeyboardNavigation.enabled"
-  [enterKeyAction]="options.keyboardNavigation?.enterKeyAction ?? defaultKeyboardNavigation.enterKeyAction"
-  [enterKeyDirection]="options.keyboardNavigation?.enterKeyDirection ?? defaultKeyboardNavigation.enterKeyDirection"
+  [editOnKeyPress]="options.keyboardNavigation?.editOnKeyPress || defaultOptions.keyboardNavigation.editOnKeyPress"
+  [enabled]="options.keyboardNavigation?.enabled ?? defaultOptions.keyboardNavigation.enabled"
+  [enterKeyAction]="options.keyboardNavigation?.enterKeyAction ?? defaultOptions.keyboardNavigation.enterKeyAction"
+  [enterKeyDirection]="options.keyboardNavigation?.enterKeyDirection ?? defaultOptions.keyboardNavigation.enterKeyDirection"
   >
   </dxo-keyboard-navigation>
-  <dxo-filter-row [visible]="options.filterRow?.visible ?? defaultFilterRow.visible"></dxo-filter-row>
+  <dxo-filter-row [visible]="options.filterRow?.visible ?? defaultOptions.filterRow.visible"></dxo-filter-row>
   <dxo-export
-    [enabled]="options.export?.enabled ?? defaultExport.enabled"
-    [allowExportSelectedData]="options.export?.allowExportSelectedData ?? defaultExport.allowExportSelectedData"
+    [enabled]="options.export?.enabled ?? defaultOptions.export.enabled"
+    [allowExportSelectedData]="options.export?.allowExportSelectedData ?? defaultOptions.export.allowExportSelectedData"
   >
   </dxo-export>
   <dxo-selection
-  [allowSelectAll]="options.selection?.allowSelectAll ?? defaultSelection.allowSelectAll"
-  [deferred]="options.selection?.deferred ?? defaultSelection.deferred"
-  [mode]="options.selection?.mode ?? defaultSelection.mode"
-  [selectAllMode]="options.selection?.selectAllMode ?? defaultSelection.selectAllMode"
-  [showCheckBoxesMode]="options.selection?.showCheckBoxesMode ?? defaultSelection.showCheckBoxesMode"
+  [allowSelectAll]="options.selection?.allowSelectAll ?? defaultOptions.selection.allowSelectAll"
+  [deferred]="options.selection?.deferred ?? defaultOptions.selection.deferred"
+  [mode]="options.selection?.mode ?? defaultOptions.selection.mode"
+  [selectAllMode]="options.selection?.selectAllMode ?? defaultOptions.selection.selectAllMode"
+  [showCheckBoxesMode]="options.selection?.showCheckBoxesMode ?? defaultOptions.selection.showCheckBoxesMode"
 
   >
   </dxo-selection>
   <dxo-editing
-    [mode]="options.editing?.mode ?? defaultEditing.mode"
-    [allowAdding]="options.editing?.allowAdding ?? defaultEditing.allowAdding"
-    [allowDeleting]="options.editing?.allowDeleting ?? defaultEditing.allowDeleting"
-    [allowUpdating]="options.editing?.allowUpdating ?? defaultEditing.allowUpdating"
-    [useIcons]="options.editing?.useIcons ?? defaultEditing.useIcons"
-    [selectTextOnEditStart]="options.editing?.selectTextOnEditStart ?? defaultEditing.selectTextOnEditStart"
+    [mode]="options.editing?.mode ?? defaultOptions.editing.mode"
+    [allowAdding]="options.editing?.allowAdding ?? defaultOptions.editing.allowAdding"
+    [allowDeleting]="options.editing?.allowDeleting ?? defaultOptions.editing.allowDeleting"
+    [allowUpdating]="options.editing?.allowUpdating ?? defaultOptions.editing.allowUpdating"
+    [useIcons]="options.editing?.useIcons ?? defaultOptions.editing.useIcons"
+    [selectTextOnEditStart]="options.editing?.selectTextOnEditStart ?? defaultOptions.editing.selectTextOnEditStart"
     (changes)="changes"
     (changesChange)="onChangesChange($event)"
   >
   </dxo-editing>
-
+  <dxo-load-panel [enabled]="options.loadPanel?.enabled ?? defaultOptions.loadPanel.enabled"></dxo-load-panel>
+  <dxo-scrolling
+    [useNative]="options.scrolling?.useNative ?? defaultOptions.scrolling.useNative"
+    [showScrollbar]="options.scrolling?.showScrollbar ?? defaultOptions.scrolling.showScrollbar"
+></dxo-scrolling>
 </dx-data-grid>

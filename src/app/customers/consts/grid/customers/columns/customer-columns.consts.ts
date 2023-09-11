@@ -1,19 +1,19 @@
+import { ndxDataGridColumn } from 'src/app/shared/grid/models/columns/ndx-data-grid-column.model';
 import { AddressComponent } from '../../../../address/address.component';
 import { IdComponent } from '../../../../id/id.component';
 import { CustomersService } from '../../../../services/customers.service';
 
-export const CUSTOMERCOLUMNS = [
+export const CUSTOMERCOLUMNS: Partial<ndxDataGridColumn>[] = [
   {
     name: "ID",
     dataField: "ID",
     caption: "ID",
     dataType: "number",
     alignment: "left",
-
     allowSorting: false,
     validationRule: {
-      required: true,
-      stringLength: 2
+      required: {},
+      stringLength: { min:1, max:3 },
     },
     cellTemplate: 'IdTemplate', // Esto será el identificador para nuestra plantilla personalizada
     loadComponent: IdComponent,
@@ -28,10 +28,10 @@ export const CUSTOMERCOLUMNS = [
     width: "100",
     allowSorting: false,
     validationRule: {
-      required: true,
-      stringLength: 200,
+      required: {},
+      stringLength: { min:2, max:400 },
       asyncRule: {
-        callback: ($data: any) => { return Promise.resolve(true) },
+        validationCallback: ($data: any) => { return Promise.resolve(true) },
         message: "bad format companyname"
       }
     }
@@ -44,10 +44,10 @@ export const CUSTOMERCOLUMNS = [
     cssClass: "",
     allowSorting: true,
     validationRule: {
-      required: true,
-      stringLength: 200,
+      required: {},
+      stringLength: { min:2, max:400 },
       asyncRule: {
-        callback: CustomersService.validateAddress,
+        validationCallback: CustomersService.validateAddress,
         message: "bad format companyname"
       }
     },

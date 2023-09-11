@@ -45,6 +45,15 @@ export type ndxEditing = {
   selectTextOnEditStart: boolean
 }
 
+export type ndxLoadPanel = {
+  enabled: boolean | 'auto'
+}
+
+export type ndxScrolling = {
+  useNative: boolean | 'auto',
+  showScrollbar: 'always' | 'never' | 'onHover' | 'onScroll'
+}
+
 export type ndxDataGrid = {
   keyExpr: string;
   focusedRowEnabled: boolean;
@@ -71,4 +80,6 @@ export type ndxDataGrid = {
   export: Partial<ndxExport>;
   selection: Partial<ndxSelection>;
   editing: Partial<ndxEditing>;
+  loadPanel: Partial<ndxLoadPanel>;
+  scrolling: Partial<ndxScrolling>;
 }

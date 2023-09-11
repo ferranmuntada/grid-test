@@ -1,20 +1,34 @@
-import { Type } from "@angular/core";
+import { TemplateRef, Type } from "@angular/core";
 /*
 export enum ndxDataTypes {
    STRING = "string",
    BUTTONS = "buttons"
   };
 */
-export type ndxCallbackEvent = ($event: any) => void;
+export type ndxStringLengthRule = {
+  ignoreEmptyValue: boolean;
+  min: number;
+  max: number;
+  message: string;
+  trim: boolean;
+}
+
+export type ndxRequiredRule = {
+  message: string;
+  trim: boolean;
+}
 
 export type ndxAsyncRule = {
-  callback: ($data: any) => Promise<boolean>;
+  ignoreEmptyValue: boolean;
   message: string;
+  reevaluate: boolean;
+  validationCallback: ($data: any) => Promise<boolean>;
 }
+
 export type ndxValidationRules = {
-  required: boolean;
-  stringLength:  Date | number ;
-  asyncRule: ndxAsyncRule;
+  required: Partial<ndxRequiredRule>;
+  stringLength:  Partial<ndxStringLengthRule>;
+  asyncRule: Partial<ndxAsyncRule>;
 }
 
 export type ndxDataGridColumn = {
@@ -29,7 +43,7 @@ export type ndxDataGridColumn = {
   allowSorting: boolean;
   validationRule: Partial<ndxValidationRules>;
   cellTemplate: string;
-  loadComponent?: Type<any>;
+  loadComponent: Type<any>;
   sortOrderChange: ($data: any) => void;
   calculateDisplayValue: ($data: any) => any;
 }
