@@ -1,4 +1,5 @@
 <dx-text-box
   [value]="data.value"
+  [readOnly]="!data?.setValue"
   (onValueChanged)="data.setValue($event.value)">
 </dx-text-box>

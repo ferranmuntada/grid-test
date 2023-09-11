@@ -23,6 +23,28 @@ export type ndxFilterRow = {
   visible: boolean
 }
 
+export type ndxExport = {
+  allowExportSelectedData: boolean,
+  enabled: boolean,
+}
+
+export type ndxSelection =  {
+  allowSelectAll: boolean,
+  deferred: boolean,
+  mode: string,
+  selectAllMode: string,
+  showCheckBoxesMode: string
+}
+
+export type ndxEditing = {
+  mode: string,
+  allowAdding: boolean,
+  allowDeleting: boolean,
+  allowUpdating: boolean,
+  useIcons: boolean,
+  selectTextOnEditStart: boolean
+}
+
 export type ndxDataGrid = {
   keyExpr: string;
   focusedRowEnabled: boolean;
@@ -46,4 +68,7 @@ export type ndxDataGrid = {
   paging: Partial<ndxPaging>;
   keyboardNavigation: Partial<ndxKeyboardNavigation>;
   filterRow: Partial<ndxFilterRow>;
+  export: Partial<ndxExport>;
+  selection: Partial<ndxSelection>;
+  editing: Partial<ndxEditing>;
 }

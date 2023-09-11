@@ -1,21 +1,20 @@
-{{(!!options.filterRow?.visible || 'pepa')}}
 <dx-data-grid
   [keyExpr]="options.keyExpr"
   [focusedRowEnabled]="options.focusedRowEnabled || !!options.keyExpr"
   [focusedRowIndex]="options.focusedRowIndex || defaultFocusedRowIndex"
   [autoNavigateToFocusedRow]="options.autoNavigateToFocusedRow || !!options.keyExpr"
   [dataSource]="dataSource"
-  [showColumnLines]="options.showColumnLines || defaultShowColumnLines"
-  [showRowLines]="options.showRowLines || defaultShowRowLines"
-  [showBorders]="options.showBorders || defaultShowBorders"
-  [rowAlternationEnabled]="options.rowAlternationEnabled || defaultRowAlternationEnabled"
-  [allowColumnResizing]="options.allowColumnResizing || defaultAllowColumnResizing"
-  [allowColumnReordering]="options.allowColumnReordering || defaultAllowColumnReordering"
-  [columnResizingMode]="options.columnResizingMode || defaultColumnResizingMode"
-  [repaintChangesOnly]="options.repaintChangesOnly || defaultRepaintChangesOnly"
+  [showColumnLines]="options.showColumnLines ?? defaultShowColumnLines"
+  [showRowLines]="options.showRowLines ?? defaultShowRowLines"
+  [showBorders]="options.showBorders ?? defaultShowBorders"
+  [rowAlternationEnabled]="options.rowAlternationEnabled ?? defaultRowAlternationEnabled"
+  [allowColumnResizing]="options.allowColumnResizing ?? defaultAllowColumnResizing"
+  [allowColumnReordering]="options.allowColumnReordering ?? defaultAllowColumnReordering"
+  [columnResizingMode]="options.columnResizingMode ?? defaultColumnResizingMode"
+  [repaintChangesOnly]="options.repaintChangesOnly ?? defaultRepaintChangesOnly"
   [remoteOperations]="options.remoteOperations || defaultRemoteOperations"
-  [width]="options.width || defaultWidth"
-  [height]="options.height || defaultHeight"
+  [width]="options.width ?? defaultWidth"
+  [height]="options.height ?? defaultHeight"
   (onToolbarPreparing)="options.onToolbarPreparing? options.onToolbarPreparing($event) : defaultEvent($event) "
   (onEditorPreparing)="options.onEditorPreparing? options.onEditorPreparing($event) : defaultEvent($event)"
   (onCellPrepared)="options.onCellPrepared? options.onCellPrepared($event) : defaultEvent($event)"
@@ -30,7 +29,7 @@
     [alignment]="column.alignment"
     [cssClass]="column.cssClass"
     [width]="column.width || 'auto'"
-    [allowSorting]="column.allowSorting || false"
+    [allowSorting]="column.allowSorting ?? false"
     [editCellTemplate]="column.cellTemplate"
     [showEditorAlways]="column.cellTemplate"
     (sortOrderChange)="column.sortOrderChange? column.sortOrderChange($event) : defaultEvent($event)"
@@ -53,32 +52,43 @@
   </div>
 </ng-container>
 
-  <dxo-sorting [mode]="options.sorting?.mode ||defaultSorting.mode"></dxo-sorting>
-  <dxo-paging [enabled]="options.paging?.enabled || defaultPaging.enabled"
-  [pageIndex]="options.paging?.pageIndex || defaultPaging.pageIndex"
-  [pageSize]="options.paging?.pageSize || defaultPaging.pageSize"
+  <dxo-sorting [mode]="options.sorting?.mode ?? defaultSorting.mode"></dxo-sorting>
+  <dxo-paging [enabled]="options.paging?.enabled ?? defaultPaging.enabled"
+  [pageIndex]="options.paging?.pageIndex ?? defaultPaging.pageIndex"
+  [pageSize]="options.paging?.pageSize ?? defaultPaging.pageSize"
   ></dxo-paging>
   <dxo-keyboard-navigation
   [editOnKeyPress]="options.keyboardNavigation?.editOnKeyPress || defaultKeyboardNavigation.editOnKeyPress"
-  [enabled]="options.keyboardNavigation?.enabled || defaultKeyboardNavigation.enabled"
-  [enterKeyAction]="options.keyboardNavigation?.enterKeyAction || defaultKeyboardNavigation.enterKeyAction"
-  [enterKeyDirection]="options.keyboardNavigation?.enterKeyDirection || defaultKeyboardNavigation.enterKeyDirection"
+  [enabled]="options.keyboardNavigation?.enabled ?? defaultKeyboardNavigation.enabled"
+  [enterKeyAction]="options.keyboardNavigation?.enterKeyAction ?? defaultKeyboardNavigation.enterKeyAction"
+  [enterKeyDirection]="options.keyboardNavigation?.enterKeyDirection ?? defaultKeyboardNavigation.enterKeyDirection"
   >
   </dxo-keyboard-navigation>
-  <dxo-filter-row [visible]="!!(options.filterRow?.visible)? options.filterRow?.visible : defaultFilterRow.visible"></dxo-filter-row>
+  <dxo-filter-row [visible]="options.filterRow?.visible ?? defaultFilterRow.visible"></dxo-filter-row>
   <dxo-export
-    [enabled]="false"
-    [allowExportSelectedData]="true"
+    [enabled]="options.export?.enabled ?? defaultExport.enabled"
+    [allowExportSelectedData]="options.export?.allowExportSelectedData ?? defaultExport.allowExportSelectedData"
   >
   </dxo-export>
+  <dxo-selection
+  [allowSelectAll]="options.selection?.allowSelectAll ?? defaultSelection.allowSelectAll"
+  [deferred]="options.selection?.deferred ?? defaultSelection.deferred"
+  [mode]="options.selection?.mode ?? defaultSelection.mode"
+  [selectAllMode]="options.selection?.selectAllMode ?? defaultSelection.selectAllMode"
+  [showCheckBoxesMode]="options.selection?.showCheckBoxesMode ?? defaultSelection.showCheckBoxesMode"
+
+  >
+  </dxo-selection>
   <dxo-editing
-    mode="batch"
-    [allowAdding]="true"
-    [allowDeleting]="true"
-    [allowUpdating]="true"
-    [useIcons]="true"
-    [selectTextOnEditStart]="true"
+    [mode]="options.editing?.mode ?? defaultEditing.mode"
+    [allowAdding]="options.editing?.allowAdding ?? defaultEditing.allowAdding"
+    [allowDeleting]="options.editing?.allowDeleting ?? defaultEditing.allowDeleting"
+    [allowUpdating]="options.editing?.allowUpdating ?? defaultEditing.allowUpdating"
+    [useIcons]="options.editing?.useIcons ?? defaultEditing.useIcons"
+    [selectTextOnEditStart]="options.editing?.selectTextOnEditStart ?? defaultEditing.selectTextOnEditStart"
+    (changes)="changes"
+    (changesChange)="onChangesChange($event)"
   >
   </dxo-editing>
-  <dxo-selection mode="none" [deferred]="true"></dxo-selection>
+
 </dx-data-grid>

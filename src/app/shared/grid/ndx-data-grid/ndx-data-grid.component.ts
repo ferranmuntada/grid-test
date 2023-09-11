@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ndxDataGridColumn } from "../models/options/ndx-data-grid-column.model";
-import { ndxDataGrid, ndxFilterRow, ndxKeyboardNavigation, ndxPaging, ndxSorting } from '../models/columns/ndx-data-grid.model';
+import { ndxDataGrid, ndxEditing, ndxExport, ndxFilterRow, ndxKeyboardNavigation, ndxPaging, ndxSelection, ndxSorting } from '../models/columns/ndx-data-grid.model';
 @Component({
   selector: 'ndx-data-grid',
   templateUrl: './ndx-data-grid.component.html',
@@ -10,6 +10,9 @@ export class ndxDataGridComponent {
   @Input() dataSource: any;
   @Input() options: Partial<ndxDataGrid> = {};
   @Input() columns: Partial<ndxDataGridColumn>[] = [];
+  @Input() changes: any;
+  @Output() changesChange: EventEmitter<any> =
+  new EventEmitter<any>();
 
   defaultFocusedRowIndex = 0;
   defaultShowColumnLines = true;
@@ -43,8 +46,28 @@ export class ndxDataGridComponent {
   defaultFilterRow: Partial<ndxFilterRow> = {
     visible: true
   }
+  defaultExport: ndxExport = {
+    enabled: false,
+    allowExportSelectedData: false
+  }
+  defaultSelection: ndxSelection = {
+    allowSelectAll: true,
+    deferred: true,
+    mode: "none",
+    selectAllMode: "allPages",
+    showCheckBoxesMode: "onClick"
+  }
+  defaultEditing: ndxEditing = {
+    mode: "batch",
+    allowAdding: false,
+    allowDeleting: false,
+    allowUpdating: false,
+    useIcons: false,
+    selectTextOnEditStart: true
+  }
 
-
-  constructor() {}
+  onChangesChange($event: any){
+    this.changesChange.emit($event);
+  }
 
 }
